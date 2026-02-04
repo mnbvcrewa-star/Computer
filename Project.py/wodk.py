@@ -25,10 +25,10 @@ st.markdown("---")
 
 # กำหนดชื่อห้องให้ตรงกับลำดับลิงก์ของคุณ
 lab_configs = [
-    {"name": "ห้อง Lab 1", "url": "https://docs.google.com/spreadsheets/d/e/2PACX-1vT-Kj4rvZmMJz3J17Slush5gfgy-qEE6qAZLdlb3WOUdyefiRdJ--MPa1Keg7IYQtuOAjbUizDQsYVB/pub?output=csv"},
-    {"name": "ห้อง Lab 2", "url": "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ24_wvhcv00Ul2BAYu-ReWYYiHEh2rieecrKc9G_WkHy5Hn2Wm_7kNYKZdwmDF-P6p59KGSeP6FCBm/pub?output=csv"},
-    {"name": "ห้อง Lab 3", "url": "https://docs.google.com/spreadsheets/d/e/2PACX-1vQwFgt7eU2NVyiy2Xm6gxcTqGIXu_Vtl7RZXMkPdtzVKeNLBmeh603DtL75aHUkDOOYxXadYHwArNwp/pub?output=csv"},
-    {"name": "ห้อง Lab 4", "url": "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ6sYSZVKbaR9Qixq-lhw4HsMvzRZihL-3dd1XeCz5v5zhYvqfGzVX4vZTe7XWF2F8pXjeROFtjlfhH/pub?output=csv"}
+    {"name": "ห้องปฏิบัติการคอมพิวเตอร์ 1", "url": "https://docs.google.com/spreadsheets/d/e/2PACX-1vT-Kj4rvZmMJz3J17Slush5gfgy-qEE6qAZLdlb3WOUdyefiRdJ--MPa1Keg7IYQtuOAjbUizDQsYVB/pub?output=csv"},
+    {"name": "ห้องปฏิบัติการคอมพิวเตอร์ 2", "url": "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ24_wvhcv00Ul2BAYu-ReWYYiHEh2rieecrKc9G_WkHy5Hn2Wm_7kNYKZdwmDF-P6p59KGSeP6FCBm/pub?output=csv"},
+    {"name": "ห้องปฏิบัติการคอมพิวเตอร์ 3", "url": "https://docs.google.com/spreadsheets/d/e/2PACX-1vQwFgt7eU2NVyiy2Xm6gxcTqGIXu_Vtl7RZXMkPdtzVKeNLBmeh603DtL75aHUkDOOYxXadYHwArNwp/pub?output=csv"},
+    {"name": "ห้องปฏิบัติการคอมพิวเตอร์ 4", "url": "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ6sYSZVKbaR9Qixq-lhw4HsMvzRZihL-3dd1XeCz5v5zhYvqfGzVX4vZTe7XWF2F8pXjeROFtjlfhH/pub?output=csv"}
 ]
 
 try:
@@ -51,7 +51,7 @@ try:
         # --- ส่วนที่ 1: Metrics ---
         col_m1, col_m2, col_m3, col_m4 = st.columns(4)
         with col_m1:
-            st.metric("ผู้เข้าใช้ทั้งหมด (ที่เลือก)", f"{len(df)} คน")
+            st.metric("ผู้เข้าใช้ทั้งหมด", f"{len(df)} คน")
         with col_m2:
             st.metric("จำนวนห้องที่เลือก", f"{len(selected_lab)} ห้อง")
         with col_m3:
@@ -97,3 +97,4 @@ except Exception as e:
 st.sidebar.markdown("---")
 if st.sidebar.button("🏠 กลับสู่หน้าหลัก"):
     st.markdown('<meta http-equiv="refresh" content="0;URL=\'index.html\'">', unsafe_allow_html=True)
+
