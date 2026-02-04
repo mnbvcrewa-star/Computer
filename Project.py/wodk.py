@@ -5,8 +5,8 @@ import plotly.express as px
 # 1. ตั้งค่าหน้าเว็บ
 st.set_page_config(page_title="Lab Usage Analytics", layout="wide", initial_sidebar_state="expanded")
 
-# --- 🟢 วางฟังก์ชันโหลดข้อมูลไว้ตรงนี้ (ก่อน try:) ---
-@st.cache_data(ttl=10) # ตั้งค่าให้โหลดใหม่ทุก 10 วินาที
+# --- 🟢 ฟังก์ชันโหลดข้อมูลอัปเดตอัตโนมัติทุก 10 วินาที ---
+@st.cache_data(ttl=10) 
 def load_data(url):
     return pd.read_csv(url)
 
@@ -21,7 +21,7 @@ st.markdown("""
 st.title("🚀 ระบบวิเคราะห์สถิติห้องปฏิบัติการคอมพิวเตอร์")
 st.markdown("---")
 
-# ลิงก์ข้อมูล
+# ลิงก์ข้อมูลจริงของคุณ
 urls = [
     "https://docs.google.com/spreadsheets/d/e/2PACX-1vT-Kj4rvZmMJz3J17Slush5gfgy-qEE6qAZLdlb3WOUdyefiRdJ--MPa1Keg7IYQtuOAjbUizDQsYVB/pub?output=csv",
     "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ24_wvhcv00Ul2BAYu-ReWYYiHEh2rieecrKc9G_WkHy5Hn2Wm_7kNYKZdwmDF-P6p59KGSeP6FCBm/pub?output=csv",
@@ -30,23 +30,61 @@ urls = [
 ]
 
 try:
-    # --- 🟡 เปลี่ยนการโหลดข้อมูลมาใช้ฟังก์ชัน load_data ---
-    # เดิม: all_dfs = [pd.read_csv(url) for url in urls]
-    all_dfs = [load_data(url) for url in urls] # เรียกใช้ผ่านฟังก์ชันที่ตั้ง ttl ไว้
+    # โหลดและรวมข้อมูล
+    all_dfs = [load_data(url) for url in urls]
     df = pd.concat(all_dfs, ignore_index=True)
 
-    # ... (โค้ดส่วน Metrics และ กราฟ ของคุณเหมือนเดิมทั้งหมด) ...
+    if not df.empty:
+        # --- ส่วนที่ 1: สรุปตัวเลขสำคัญ (Metrics) ---
+        col_m1, col_m2, col_m3, col_m4 = st.columns(4)
+        with col_m1:
+            st.metric("ผู้เข้าใช้ทั้งหมด", f"{len(df)} คน", "📈")
+        with col_m2:
+            top_grade = df['ชั้นปี'].mode()[0] if 'ชั้นปี' in df.columns else "N/A"
+            st.metric("กลุ่มที่เข้าใช้หลัก", top_grade)
+        with col_m3:
+            grade_count = df['ชั้นปี'].nunique() if 'ชั้นปี' in df.columns else 0
+            st.metric("ความหลากหลายระดับชั้น", f"{grade_count} กลุ่ม")
+        with col_m4:
+            st.metric("สถานะระบบ", "Online")
+
+        st.markdown("##")
+
+        # --- ส่วนที่ 2: กราฟสถิติ ---
+        col_chart1, col_chart2 = st.columns([2, 1])
+
+        if 'ชั้นปี' in df.columns:
+            summary = df['ชั้นปี'].value_counts().reset_index()
+            summary.columns = ['ชั้นปี', 'จำนวนคน']
+            
+            with col_chart1:
+                st.subheader("📊 จำนวนผู้เข้าใช้งานแยกตามระดับชั้น")
+                fig_bar = px.bar(summary, x='ชั้นปี', y='จำนวนคน', color='จำนวนคน', 
+                                 color_continuous_scale='Blues', text_auto=True)
+                st.plotly_chart(fig_bar, use_container_width=True)
+
+            with col_chart2:
+                st.subheader("🎯 สัดส่วนการเข้าใช้")
+                fig_pie = px.pie(summary, values='จำนวนคน', names='ชั้นปี', hole=0.4)
+                st.plotly_chart(fig_pie, use_container_width=True)
+
+        # --- กราฟเส้นรายวัน ---
+        if 'วัน' in df.columns:
+            st.markdown("---")
+            st.subheader("📅 แนวโน้มการเข้าใช้งานรายวัน")
+            daily = df['วัน'].value_counts().reset_index()
+            daily.columns = ['วันที่', 'จำนวนคน']
+            daily = daily.sort_values('วันที่')
+            fig_line = px.line(daily, x='วันที่', y='จำนวนคน', markers=True)
+            st.plotly_chart(fig_line, use_container_width=True)
 
     # --- ส่วนที่ 3: ตารางข้อมูลดิบ ---
     with st.expander("🔍 ดูรายละเอียดข้อมูลดิบทั้งหมด"):
         st.dataframe(df, use_container_width=True)
 
 except Exception as e:
-    st.error(f"⚠️ เกิดข้อผิดพลาดในการโหลดข้อมูล: {e}")
+    st.error(f"⚠️ เกิดข้อผิดพลาด: {e}")
 
-# --- ส่วนของ Sidebar (อยู่นอก try) ---
+# Sidebar
 if st.sidebar.button("🏠 กลับสู่หน้าหลัก"):
     st.markdown('<meta http-equiv="refresh" content="0;URL=\'index.html\'">', unsafe_allow_html=True)
-
-
-st.sidebar.markdown("---")
