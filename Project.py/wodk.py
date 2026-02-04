@@ -23,10 +23,10 @@ st.markdown("---")
 
 # ลิงก์ข้อมูล
 urls = [
-    "https://docs.google.com/spreadsheets/d/e/...URL1.../pub?output=csv",
-    "https://docs.google.com/spreadsheets/d/e/...URL2.../pub?output=csv",
-    "https://docs.google.com/spreadsheets/d/e/...URL3.../pub?output=csv",
-    "https://docs.google.com/spreadsheets/d/e/...URL4.../pub?output=csv"
+    "https://docs.google.com/spreadsheets/d/e/2PACX-1vT-Kj4rvZmMJz3J17Slush5gfgy-qEE6qAZLdlb3WOUdyefiRdJ--MPa1Keg7IYQtuOAjbUizDQsYVB/pub?output=csv",
+    "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ24_wvhcv00Ul2BAYu-ReWYYiHEh2rieecrKc9G_WkHy5Hn2Wm_7kNYKZdwmDF-P6p59KGSeP6FCBm/pub?output=csv",
+    "https://docs.google.com/spreadsheets/d/e/2PACX-1vQwFgt7eU2NVyiy2Xm6gxcTqGIXu_Vtl7RZXMkPdtzVKeNLBmeh603DtL75aHUkDOOYxXadYHwArNwp/pub?output=csv",
+    "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ6sYSZVKbaR9Qixq-lhw4HsMvzRZihL-3dd1XeCz5v5zhYvqfGzVX4vZTe7XWF2F8pXjeROFtjlfhH/pub?output=csv"
 ]
 
 try:
@@ -47,5 +47,6 @@ except Exception as e:
 # --- ส่วนของ Sidebar (อยู่นอก try) ---
 if st.sidebar.button("🏠 กลับสู่หน้าหลัก"):
     st.markdown('<meta http-equiv="refresh" content="0;URL=\'index.html\'">', unsafe_allow_html=True)
+
 
 st.sidebar.markdown("---")
