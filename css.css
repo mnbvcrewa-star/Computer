@@ -7,7 +7,7 @@
     --card-bg: #ffffff;
     --text-main: #1e293b;
     --text-muted: #64748b;
-    --sidebar-grad: linear-gradient(180deg, rgb(49, 46, 46) 0%, #020202 100%);
+    --sidebar-grad: linear-gradient(180deg, rgb(71, 68, 68) 0%, #353232 100%);
 }
 
         * {
@@ -198,4 +198,5 @@
         font-size: 20px; /* คอม: ตัวหนังสือใหญ่ขึ้น */
     }
 }
+
 
