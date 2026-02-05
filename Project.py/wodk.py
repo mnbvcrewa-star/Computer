@@ -33,6 +33,19 @@ lab_configs = [
 ]
 
 
+    try:
+    all_dfs = [load_data(config['url'], config['name']) for config in lab_configs]
+    df_all = pd.concat(all_dfs, ignore_index=True)
+
+    st.sidebar.title("🔍 ตัวกรองข้อมูล")
+    selected_lab = st.sidebar.multiselect(
+        "เลือกห้องปฏิบัติการ:",
+        options=df_all['ห้องปฏิบัติการ'].unique(),
+        default=df_all['ห้องปฏิบัติการ'].unique()
+    )
+
+    df = df_all[df_all['ห้องปฏิบัติการ'].isin(selected_lab)]
+
     if not df.empty:
         # --- ส่วนที่ 1: Metrics (จุดที่แก้ไขเรื่องชื่อยาว) ---
         col_m1, col_m2, col_m3, col_m4 = st.columns(4)
@@ -82,6 +95,7 @@ except Exception as e:
 st.sidebar.markdown("---")
 if st.sidebar.button("🏠 กลับสู่หน้าหลัก"):
     st.markdown('<meta http-equiv="refresh" content="https://mnbvcrewa-star.github.io/Computer/">', unsafe_allow_html=True)
+
 
 
 
