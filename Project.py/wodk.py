@@ -32,11 +32,6 @@ lab_configs = [
     {"name": "ห้องปฏิบัติการคอมพิวเตอร์ 4", "url": "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ6sYSZVKbaR9Qixq-lhw4HsMvzRZihL-3dd1XeCz5v5zhYvqfGzVX4vZTe7XWF2F8pXjeROFtjlfhH/pub?output=csv"}
 ]
 
-    try:
-    all_dfs = [load_data(config['url'], config['name']) for config in lab_configs]
-    df_all = pd.concat(all_dfs, ignore_index=True)
-
-    df = df_all[df_all['ห้องปฏิบัติการ'].isin(selected_lab)]
 
     if not df.empty:
         # --- ส่วนที่ 1: Metrics (จุดที่แก้ไขเรื่องชื่อยาว) ---
@@ -87,6 +82,7 @@ except Exception as e:
 st.sidebar.markdown("---")
 if st.sidebar.button("🏠 กลับสู่หน้าหลัก"):
     st.markdown('<meta http-equiv="refresh" content="https://mnbvcrewa-star.github.io/Computer/">', unsafe_allow_html=True)
+
 
 
 
