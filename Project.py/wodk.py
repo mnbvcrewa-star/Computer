@@ -85,7 +85,7 @@ try:
                 fig_pie = px.pie(summary_grade, values='จำนวนคน', names='ชั้นปี', hole=0.4)
                 st.plotly_chart(fig_pie, use_container_width=True)
 
-    with st.expander("🔍 ดูรายละเอียดข้อมูลดิบทั้งหมด"):
+    with st.expander("🔍 ดูรายละเอียดข้อมูลทั้งหมด"):
         st.dataframe(df, use_container_width=True)
 
 except Exception as e:
@@ -94,3 +94,4 @@ except Exception as e:
 st.sidebar.markdown("---")
 if st.sidebar.button("🏠 กลับสู่หน้าหลัก"):
     st.markdown('<meta http-equiv="refresh" content="0;URL=\'index.html\'">', unsafe_allow_html=True)
+
