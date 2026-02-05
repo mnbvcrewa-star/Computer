@@ -32,8 +32,7 @@ lab_configs = [
     {"name": "ห้องปฏิบัติการคอมพิวเตอร์ 4", "url": "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ6sYSZVKbaR9Qixq-lhw4HsMvzRZihL-3dd1XeCz5v5zhYvqfGzVX4vZTe7XWF2F8pXjeROFtjlfhH/pub?output=csv"}
 ]
 
-
-    try:
+try:
     all_dfs = [load_data(config['url'], config['name']) for config in lab_configs]
     df_all = pd.concat(all_dfs, ignore_index=True)
 
@@ -86,7 +85,7 @@ lab_configs = [
                 fig_pie = px.pie(summary_grade, values='จำนวนคน', names='ชั้นปี', hole=0.4)
                 st.plotly_chart(fig_pie, use_container_width=True)
 
-    with st.expander("🔍 ดูรายละเอียดข้อมูลทั้งหมด"):
+    with st.expander("🔍 ดูรายละเอียดข้อมูลดิบทั้งหมด"):
         st.dataframe(df, use_container_width=True)
 
 except Exception as e:
@@ -95,9 +94,3 @@ except Exception as e:
 st.sidebar.markdown("---")
 if st.sidebar.button("🏠 กลับสู่หน้าหลัก"):
     st.markdown('<meta http-equiv="refresh" content="0;URL=\'index.html\'">', unsafe_allow_html=True)
-
-
-
-
-
-
