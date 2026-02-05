@@ -85,7 +85,7 @@ try:
                 fig_pie = px.pie(summary_grade, values='จำนวนคน', names='ชั้นปี', hole=0.4)
                 st.plotly_chart(fig_pie, use_container_width=True)
 
-    with st.expander("🔍 ดูรายละเอียดข้อมูลดิบทั้งหมด"):
+    with st.expander("🔍 ดูรายละเอียดข้อมูลทั้งหมด"):
         st.dataframe(df, use_container_width=True)
 
 except Exception as e:
@@ -97,3 +97,4 @@ if st.sidebar.button("🏠 กลับสู่หน้าหลัก"):
     # ใส่ลิงก์ของคุณตรงนี้แทน index.html
     nav_link = "https://mnbvcrewa-star.github.io/Computer/"
     st.markdown(f'<meta http-equiv="refresh" content="0;URL=\'{nav_link}\'">', unsafe_allow_html=True)
+
